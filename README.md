@@ -18,10 +18,21 @@ cp .env.example .env
 
 ## Development
 
+### Local Development (without Docker)
+
 Start the development server:
 ```bash
 npm run dev
 ```
+
+### Local Development (with Docker)
+
+Start the development server using Docker:
+```bash
+docker-compose up
+```
+
+The app will be available at `http://localhost:5173/`. Changes to files in the `src` folder will hot-reload automatically.
 
 ## Build
 
