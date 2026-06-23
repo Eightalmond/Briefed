@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import FilterPills from './components/FilterPills';
 import NewsFeed from './components/NewsFeed';
+import ExplainPanel from './components/ExplainPanel';
 import { mockStories } from './mockStories';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [activeFilter, setActiveFilter] = useState('All');
+  const [explainStory, setExplainStory] = useState(null);
 
   const fetchNews = async () => {
     setIsLoading(true);
@@ -35,30 +37,8 @@ function App() {
     */
   };
 
-  const handleExplain = async (story) => {
-    const question = prompt('What would you like to know about this story?');
-    if (!question) return;
-
-    try {
-      const response = await fetch('/api/explain', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          story: {
-            title: story.title,
-            summary: story.summary,
-          },
-          question,
-        }),
-      });
-
-      if (!response.ok) throw new Error('Failed to get explanation');
-      const data = await response.json();
-      alert(data.explanation);
-    } catch (error) {
-      console.error('Error getting explanation:', error);
-      alert('Failed to get explanation. Please try again.');
-    }
+  const handleExplain = (story) => {
+    setExplainStory(story);
   };
 
   useEffect(() => {
@@ -88,6 +68,13 @@ function App() {
           />
         </div>
       </div>
+
+      {explainStory && (
+        <ExplainPanel
+          story={explainStory}
+          onClose={() => setExplainStory(null)}
+        />
+      )}
     </div>
   );
 }
