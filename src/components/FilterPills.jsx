@@ -1,37 +1,35 @@
 function FilterPills({ active, onChange }) {
   const filters = ['All', 'AI', 'Tech', 'Geopolitics'];
-  
-  const getColorClasses = (filter) => {
+
+  const getStyles = (filter) => {
     const isActive = active === filter;
-    
+
+    const base = 'px-3.5 py-1 rounded-full text-xs font-medium border transition-all duration-200 whitespace-nowrap';
+
+    if (!isActive) {
+      return `${base} border-white/[0.06] text-gray-500 hover:text-gray-300 hover:border-white/10 bg-transparent`;
+    }
+
     switch (filter) {
       case 'AI':
-        return isActive
-          ? 'bg-purple-600 text-white border-purple-600'
-          : 'border-purple-600 text-purple-400 hover:bg-purple-600/10';
+        return `${base} border-violet-500/50 text-violet-300 bg-violet-500/10 glow-violet`;
       case 'Tech':
-        return isActive
-          ? 'bg-blue-600 text-white border-blue-600'
-          : 'border-blue-600 text-blue-400 hover:bg-blue-600/10';
+        return `${base} border-cyan-500/50 text-cyan-300 bg-cyan-500/10 glow-cyan`;
       case 'Geopolitics':
-        return isActive
-          ? 'bg-orange-600 text-white border-orange-600'
-          : 'border-orange-600 text-orange-400 hover:bg-orange-600/10';
+        return `${base} border-amber-500/50 text-amber-300 bg-amber-500/10 glow-amber`;
       default:
-        return isActive
-          ? 'bg-gray-700 text-white border-gray-700'
-          : 'border-gray-700 text-gray-400 hover:bg-gray-700/50';
+        return `${base} border-white/20 text-white bg-white/5 glow-white`;
     }
   };
 
   return (
-    <div className="px-4 py-3 border-b border-gray-800 overflow-x-auto">
+    <div className="px-5 py-3 overflow-x-auto scrollbar-hide">
       <div className="flex gap-2 min-w-max">
         {filters.map((filter) => (
           <button
             key={filter}
             onClick={() => onChange(filter)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-all whitespace-nowrap ${getColorClasses(filter)}`}
+            className={getStyles(filter)}
           >
             {filter}
           </button>

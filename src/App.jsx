@@ -55,25 +55,27 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
-      <div className="max-w-[480px] mx-auto min-h-screen bg-gray-900 shadow-2xl">
-        <Header 
-          lastUpdated={lastUpdated}
-          onRefresh={fetchNews}
-          isLoading={isLoading}
-        />
-        
-        <FilterPills 
-          active={activeFilter}
-          onChange={setActiveFilter}
-        />
-        
-        <NewsFeed 
-          stories={stories}
-          isLoading={isLoading}
-          activeFilter={activeFilter}
-          onExplain={handleExplain}
-        />
+    <div className="min-h-screen bg-surface bg-noise">
+      <div className="min-h-screen bg-gradient-to-b from-[#0c0c14] to-[#050507]">
+        <div className="max-w-[480px] mx-auto min-h-screen relative">
+          <Header
+            lastUpdated={lastUpdated}
+            onRefresh={fetchNews}
+            isLoading={isLoading}
+          />
+
+          <FilterPills
+            active={activeFilter}
+            onChange={setActiveFilter}
+          />
+
+          <NewsFeed
+            stories={stories}
+            isLoading={isLoading}
+            activeFilter={activeFilter}
+            onExplain={handleExplain}
+          />
+        </div>
       </div>
     </div>
   );
