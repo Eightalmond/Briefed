@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import FilterPills from './components/FilterPills';
 import NewsFeed from './components/NewsFeed';
+import { mockStories } from './mockStories';
 
 function App() {
   const [stories, setStories] = useState([]);
@@ -11,6 +12,15 @@ function App() {
 
   const fetchNews = async () => {
     setIsLoading(true);
+    
+    // TODO: Remove mock data and uncomment API call when Anthropic key is ready
+    // Simulating network delay for realistic loading state
+    await new Promise(resolve => setTimeout(resolve, 800));
+    setStories(mockStories);
+    setLastUpdated(new Date().toISOString());
+    setIsLoading(false);
+
+    /* Uncomment when ready to use real API:
     try {
       const response = await fetch('/api/news');
       if (!response.ok) throw new Error('Failed to fetch news');
@@ -22,6 +32,7 @@ function App() {
     } finally {
       setIsLoading(false);
     }
+    */
   };
 
   const handleExplain = async (story) => {
